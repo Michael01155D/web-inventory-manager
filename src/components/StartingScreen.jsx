@@ -1,4 +1,6 @@
 const StartingScreen = () => {
+
+
     return(
         <>
             <p>Please Choose Between a Default or Custom Starting Inventory</p>
