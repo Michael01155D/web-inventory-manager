@@ -1,17 +1,23 @@
-export let products = [];
+let inventory = [];
 
 export const addProduct = (newProduct) => {
-    products = [...products, newProduct]
+    inventory = [...inventory, newProduct]
 }
 
 export const removeProduct = (productName) => {
-    products = products.filter(product => product.name !== productName);
+    inventory = inventory.filter(product => product.name !== productName);
 }
 
 export const renameProduct = (newName, oldName) => {
-    products = products.map(product => product.name == oldName ? {...product, name: newName} : product)
+    inventory = inventory.map(product => product.name == oldName ? {...product, name: newName} : product)
 }
 
 export const editStock = (productName, newStock) => {
-    products = products.map(p => p.name == productName ? {...p, stock: newStock} : p)
+    inventory = inventory.map(p => p.name == productName ? {...p, stock: newStock} : p)
 }
+
+export const clearInventory = () => {
+    inventory = []; 
+}
+
+export default inventory;
