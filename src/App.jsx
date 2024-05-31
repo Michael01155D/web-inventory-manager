@@ -1,18 +1,19 @@
-import { useState } from 'react'
+import {useRef} from 'react'
 import './App.css'
-import StartingScreen from './components/StartingScreen'
-import Navbar from './components/Navbar'
-const App = () => {
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Inventory from './Inventory.js';
+import HomePage from './components/HomePage.jsx';
 
+
+const App = () => {
+  //todo: replace inventory object with DB collection fetched by server
+  const inventory = useRef(new Inventory())
   return (
-    <main>
-      <header>
-        <Navbar/>
-      </header>
-      <section>
-        <StartingScreen/>
-      </section>
-    </main>
+    <BrowserRouter>
+      <Routes> 
+          <Route path='/' element={<HomePage inventory={inventory.current}/>}/>
+      </Routes>
+    </BrowserRouter>
   )
 }
 

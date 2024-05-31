@@ -1,6 +1,6 @@
-import { products } from "./data"
+//receives Inventory object's array of products to ensure serial codes and product names are unique
 
-const generateSerialCode = () => {
+const generateSerialCode = (products) => {
     const alpha = "abcdefghijklmnopqrstuvwxyz".split("").map(char => char + char.toUpperCase()).join("").split("");
     const num = "0123456789".split("");
     let code = "";
@@ -21,7 +21,7 @@ const generateSerialCode = () => {
     return code;
 };
 
-const generateName = () => {
+const generateName = (products) => {
     const defaultNames = [
         "Green Apple",
         "Red Apple",
@@ -69,6 +69,6 @@ const generateStock = () => {
     return Math.floor(Math.random() * 1000);
 }
 
-export const createNewProduct = () => {
-    return {name: generateName(), serialCode: generateSerialCode(), stock: generateStock()}
+export const createNewProduct = (products) => {
+    return {name: generateName(products), serialCode: generateSerialCode(products), stock: generateStock()}
 }
