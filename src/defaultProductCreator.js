@@ -1,6 +1,6 @@
 //receives Inventory object's array of products to ensure serial codes and product names are unique
 
-const generateSerialCode = (products) => {
+export const generateSerialCode = (products) => {
     const alpha = "abcdefghijklmnopqrstuvwxyz".split("").map(char => char + char.toUpperCase()).join("").split("");
     const num = "0123456789".split("");
     let code = "";

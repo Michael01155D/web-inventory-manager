@@ -1,0 +1,9 @@
+
+.DisplayMessage {
+    color: darkgreen;
+    font-family: consolas;
+}
+
+.ErrorMessage {
+    color: red;
+}
