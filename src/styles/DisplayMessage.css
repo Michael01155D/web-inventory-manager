@@ -1,4 +1,9 @@
 
+.DisplayMessage, .ErrorMessage {
+    margin-bottom: 5%;
+}
+
+
 .DisplayMessage {
     color: darkgreen;
     font-family: consolas;

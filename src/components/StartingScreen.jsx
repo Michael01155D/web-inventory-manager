@@ -70,6 +70,12 @@ const StartingScreen = ({ inventory, setDisplayStart }) => {
 
     return(
         <> 
+        {displayMsg.length > 0 ? 
+            <DisplayMessage id="displayMsg" displayMessage={displayMsg} isError={isError}/>
+            :
+            <></>
+        }
+
         { startOption == "default" ?
             <>
                 <form onSubmit={setUpDefaultInventory}>
@@ -80,32 +86,36 @@ const StartingScreen = ({ inventory, setDisplayStart }) => {
             </>
             :
             <section id="customStart">
-                {displayMsg.length > 0 ? 
-                    <DisplayMessage id="displayMsg" displayMessage={displayMsg} isError={isError}/>
-                    :
-                    <></>
-                }
-                <form onSubmit={addNewProduct}>
-                    <label id="productNameLabel" htmlFor="productName">Product Name: </label>
-                    <input id="productName" name="productName" value={newProductName} onChange={e => setNewProductName(e.target.value)}/>
-                    <label id="productStockLabel" htmlFor="productStock">Starting Quantity (0 to 999): </label>
-                    <input name="productStock" id="productStock" type="number" min="0" max="999" value={newProductStock} onChange={e => setNewProductStock(+e.target.value)}/>
-                    <button id="addProductButton" type="submit" className="submit_button">Add Product</button>
-                </form>
-                <Button label={"Done"} id="doneAddingProducts" handleClick={setUpCustomInventory}/>
-                {inventory.getProducts().length > 0 ?
-                <section id="itemsAdded">
-                    Items added:
-                    <ul>
-                        {inventory.getProducts().map(p => <li key={p.serialCode}>{p.name}</li>)}
-                    </ul>
+                <section id="customStartInput">
+                    <form onSubmit={addNewProduct} id="createCustomInventoryForm">
+                        <div id="nameInputs">
+                            <label id="productNameLabel" htmlFor="productName">Product Name: </label>
+                            <input id="productName" name="productName" value={newProductName.trimStart()} minLength="2" required maxLength="18" onChange={e => setNewProductName(e.target.value)}/>
+                        </div>
+                        <div id="stockInputs">
+                            <label id="productStockLabel" htmlFor="productStock">Starting Quantity (0 to 999): </label>
+                            <input name="productStock" id="productStock" type="number" required min="0" max="999" value={newProductStock} onChange={e => setNewProductStock(+e.target.value)}/>
+                        </div>
+                        <button id="addProductButton" type="submit" className="submit_button">Add Product</button>
+                    </form>
+                    <Button label={"Done"} id="done" handleClick={setUpCustomInventory}/>
                 </section>
-                : <> </>
-                }
+                <section id="itemsAdded">
+                    {inventory.getProducts().length > 0 ?
+                        <>
+                            <p>Items added:</p>
+                            <ul>
+                                {inventory.getProducts().map(p => <li key={p.serialCode}>{p.name}</li>)}
+                            </ul>
+                        </>
+                        :
+                        <p>Start adding items to the inventory!</p>
+                    }
+                </section>
             </section>
         }
         </>
     )
 }
 
-export default StartingScreen
+export default StartingScreen;

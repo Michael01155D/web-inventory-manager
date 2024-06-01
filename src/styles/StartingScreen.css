@@ -1,0 +1,25 @@
+#nameInputs, #stockInputs {
+    display: flex;
+    padding-top: 2%;
+    margin: 0;
+}
+
+#nameInputs > input, #stockInputs > input {
+    margin-left: 1em;
+}
+
+#customStart {
+   display: flex;
+   justify-content: space-between;
+   align-items: baseline;
+   gap: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0%;
+}
+
+li {
+    text-align: right;
+}
