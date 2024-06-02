@@ -8,7 +8,7 @@ import DisplayMessage from "./DisplayMessage.jsx";
 
 const StartingScreen = ({ inventory, setDisplayStart }) => {
     const [startOption, setStartOption] = useState(false);
-    const [numProducts, setNumProducts] = useState("1");
+    const [numProducts, setNumProducts] = useState("");
     const [newProductName, setNewProductName] = useState("");
     const [newProductStock, setNewProductStock] = useState(0);
     //isError/displayMsg used for DisplayMessage component
@@ -80,7 +80,7 @@ const StartingScreen = ({ inventory, setDisplayStart }) => {
             <>
                 <form onSubmit={setUpDefaultInventory}>
                     <label htmlFor="startingProducts"> Number of Starting Products (1 to 30): </label>
-                    <input id="startingProducts" name="startingProducts" type="number" min="1" max="30" value={numProducts} onChange={e => setNumProducts(+e.target.value)}/>
+                    <input id="startingProducts" autoFocus name="startingProducts" type="number" min="1" max="30" value={+numProducts} onChange={e => setNumProducts(+e.target.value)}/>
                     <button type="submit" className="submit_button"> Set Up Inventory</button>
                 </form>
             </>
