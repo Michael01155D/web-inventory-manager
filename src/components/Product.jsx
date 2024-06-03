@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../styles/Product.css";
 
-const Product = ({product}) => {
+const Product = ({product, removeProduct}) => {
     const todos = ["Remove Product", "Rename Product", "Modify Product Stock"]
     const [showDetails, setShowDetails] = useState(false);
     return(
