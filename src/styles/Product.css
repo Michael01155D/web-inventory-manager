@@ -1,0 +1,14 @@
+#productView {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#toggleProductView {
+    font-size: .8em;
+    background-color: skyblue;
+}
+
+#detailedProduct > button {
+    margin-right: 5px;
+}

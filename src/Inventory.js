@@ -14,7 +14,7 @@ class Inventory {
     }
 
     removeProduct = (productName) => {
-        this.#products = this.#products.filter(product => product.name !== productName);
+       return this.#products = this.#products.filter(product => product.name !== productName);
     }
 
     renameProduct = (newName, oldName) => {
