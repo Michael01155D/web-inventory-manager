@@ -1,4 +1,4 @@
-import { useEffect, useState, useReducer } from "react";
+import { useState, useReducer } from "react";
 import "../styles/MainMenu.css";
 import Product from './Product';
 import SearchBar from "./SearchBar";
@@ -9,10 +9,17 @@ const MainMenu = ({inventory}) => {
     const todos = ["Add product button", "clear inventory button"];
     const [products, setProducts] = useState(inventory);
     const [_, forceUpdate] = useReducer((x) => x + 1, 0);
+
     const removeProduct = (productName) => {    
         inventory.removeProduct(productName);
         setProducts(inventory);
-        forceUpdate() 
+        forceUpdate();
+    }
+
+    const renameProduct = (newName, oldName) => {
+        inventory.renameProduct(newName, oldName);
+        setProducts(inventory);
+        forceUpdate();
     }
 
     //todo: once db is implemented, add Link for each Product to link to /products/:id for detail screen
@@ -25,7 +32,7 @@ const MainMenu = ({inventory}) => {
                 {products.getProducts().length > 0 ?
                     products.getProducts()
                     .filter(product => product.name.toLowerCase().includes(query.toLowerCase().trim()))
-                    .map(product => <Product key={product.serialCode} product={product} removeProduct={removeProduct}  />
+                    .map(product => <Product key={product.serialCode} product={product} removeProduct={removeProduct} renameProduct={renameProduct}  />
                         )
                     :
                     <p>The Inventory is currently empty! Click the Add New Product button to add new products!</p>

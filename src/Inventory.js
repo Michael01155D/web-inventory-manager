@@ -18,6 +18,7 @@ class Inventory {
     }
 
     renameProduct = (newName, oldName) => {
+        console.log('newName is ', newName, ' oldname is ', oldName)
         this.#products = this.#products.map(product => product.name == oldName ? {...product, name: newName} : product)
     }
 

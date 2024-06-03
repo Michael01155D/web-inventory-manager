@@ -2,6 +2,7 @@ import { useState } from "react";
 import { generateSerialCode } from "../defaultProductCreator";
 import DisplayMessage from "./DisplayMessage";
 import { Link } from "react-router-dom";
+import "../styles/NewProductPage.css";
 
 const NewProductPage = ({inventory}) => {
     const [productName, setProductName] = useState("");
@@ -13,7 +14,7 @@ const NewProductPage = ({inventory}) => {
         setTimeout(() => {
             setIsError(false);
             setDisplayMsg("");
-        }, 1500)
+        }, 1500);
     }
     
     const addNewProduct = (e) => {
@@ -22,15 +23,14 @@ const NewProductPage = ({inventory}) => {
             setDisplayMsg(`Error: ${productName} is already in the Inventory!`);
             setIsError(true);
             toggleMessage();
-            setProductName("")
-            setProductStock(0)
         } else {
             const newProduct = { name: productName, stock: productStock, serialCode: generateSerialCode(inventory.getProducts())}
             inventory.addProduct(newProduct);
             setDisplayMsg(`${productName} added to the Inventory!`)
             toggleMessage();
         }
-        console.log("inventory is ", inventory)
+        setProductName("");
+        setProductStock(0);
     }
     return(
         <>  
