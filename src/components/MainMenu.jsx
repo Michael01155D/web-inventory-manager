@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const MainMenu = ({inventory}) => {
     const [query, setQuery] = useState("");
-    const todos = ["Add product button", "clear inventory button"];
+    const todos = ["clear inventory button"];
     const [products, setProducts] = useState(inventory);
     const [_, forceUpdate] = useReducer((x) => x + 1, 0);
 
@@ -22,10 +22,19 @@ const MainMenu = ({inventory}) => {
         forceUpdate();
     }
 
+    const clearInventoryPrompt = () => {
+        if (window.confirm("Warning! This is an irreversable action. Do you want to reset the Inventory?")) {
+            inventory.clearInventory();
+            setProducts(inventory);
+            forceUpdate();
+        }
+    }
+
     //todo: once db is implemented, add Link for each Product to link to /products/:id for detail screen
     return(
         <main id="mainMenuScreen">
             <Link to={"add"}>Add New Product</Link>
+            <button id="clearInventoryButton" onClick={()=> clearInventoryPrompt()}>Reset the Inventory</button>
             <SearchBar query={query} setQuery={setQuery}/>
             <section id="inventoryList">
                 <h3>Inventory List:</h3>
