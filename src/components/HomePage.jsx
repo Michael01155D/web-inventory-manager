@@ -1,8 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StartingScreen from "./StartingScreen";
 import MainMenu from "./MainMenu";
 const HomePage = ({ inventory }) => {
-   const [displayStart, setDisplayStart] = useState(true)
+   const [displayStart, setDisplayStart] = useState(true);
+
+   //ensure starting page only reached if inventory is empty
+   useEffect(() => {
+    if (inventory.getProducts().length > 0) {
+        setDisplayStart(false);
+    }
+   }, [])
 
     return( 
         <>

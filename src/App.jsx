@@ -3,6 +3,7 @@ import './App.css'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Inventory from './Inventory.js';
 import HomePage from './components/HomePage.jsx';
+import NewProductPage from './components/NewProductPage.jsx';
 
 
 const App = () => {
@@ -12,6 +13,7 @@ const App = () => {
     <BrowserRouter>
       <Routes> 
           <Route path='/' element={<HomePage inventory={inventory.current}/>}/>
+          <Route path='/add' element={<NewProductPage inventory={inventory.current}/>}/>
       </Routes>
     </BrowserRouter>
   )
