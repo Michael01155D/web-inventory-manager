@@ -43,7 +43,7 @@ const StartingScreen = ({ inventory, setDisplayStart }) => {
         }
         toggleMessage();
         setNewProductName("");
-        setNewProductStock(0)
+        setNewProductStock("")
     }
     const setUpDefaultInventory = (e) => {
         e.preventDefault();
@@ -79,8 +79,8 @@ const StartingScreen = ({ inventory, setDisplayStart }) => {
         { startOption == "default" ?
             <>
                 <form onSubmit={setUpDefaultInventory}>
-                    <label htmlFor="startingProducts"> Number of Starting Products (1 to 30): </label>
-                    <input id="startingProducts" autoFocus name="startingProducts" type="number" min="1" max="30" value={+numProducts} onChange={e => setNumProducts(+e.target.value)}/>
+                    <label htmlFor="startingProducts"> Number of Starting Products (up to 30): </label>
+                    <input id="startingProducts" autoFocus name="startingProducts" type="number" min="1" max="30" value={numProducts.toString()} onChange={e => setNumProducts(+e.target.value.toString())}/>
                     <button type="submit" className="submit_button"> Set Up Inventory</button>
                 </form>
             </>
@@ -94,7 +94,7 @@ const StartingScreen = ({ inventory, setDisplayStart }) => {
                         </div>
                         <div id="stockInputs">
                             <label id="productStockLabel" htmlFor="productStock">Starting Quantity (0 to 999): </label>
-                            <input name="productStock" id="productStock" type="number" required min="0" max="999" value={newProductStock} onChange={e => setNewProductStock(+e.target.value)}/>
+                            <input name="productStock" id="productStock" type="number" required min="0" max="999" value={newProductStock.toString()} onChange={e => setNewProductStock(+e.target.value.toString())}/>
                         </div>
                         <button id="addProductButton" type="submit" className="submit_button">Add Product</button>
                     </form>

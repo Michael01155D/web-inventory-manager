@@ -33,8 +33,10 @@ const MainMenu = ({inventory}) => {
     //todo: once db is implemented, add Link for each Product to link to /products/:id for detail screen
     return(
         <main id="mainMenuScreen">
-            <Link to={"add"}>Add New Product</Link>
-            <button id="clearInventoryButton" onClick={()=> clearInventoryPrompt()}>Reset the Inventory</button>
+            <header id="inventoryCommands">
+                <Link to={"add"}>Add New Product</Link>
+                <button id="clearInventoryButton" onClick={()=> clearInventoryPrompt()}>Reset the Inventory</button>
+            </header>
             <SearchBar query={query} setQuery={setQuery}/>
             <section id="inventoryList">
                 <h3>Inventory List:</h3>
@@ -44,7 +46,7 @@ const MainMenu = ({inventory}) => {
                     .map(product => <Product key={product.serialCode} product={product} removeProduct={removeProduct} renameProduct={renameProduct}  />
                         )
                     :
-                    <p>The Inventory is currently empty! Click the Add New Product button to add new products!</p>
+                    <p>The Inventory is currently empty! Click on Add New Product to add new products!</p>
                 }
             </section>
         </main>

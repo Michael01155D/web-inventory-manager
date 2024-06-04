@@ -6,7 +6,7 @@ import "../styles/NewProductPage.css";
 
 const NewProductPage = ({inventory}) => {
     const [productName, setProductName] = useState("");
-    const [productStock, setProductStock] = useState(0);
+    const [productStock, setProductStock] = useState("");
     const [displayMsg, setDisplayMsg] = useState("");
     const [isError, setIsError] = useState(false);
     //reused from StartingScreen, todo: refactor and put into DisplayMessage or import from seperate file
@@ -47,7 +47,7 @@ const NewProductPage = ({inventory}) => {
                         </div>
                         <div id="stockInputs">
                             <label id="productStockLabel" htmlFor="productStock">Starting Quantity (0 to 999): </label>
-                            <input name="productStock" id="productStock" type="number" required min="0" max="999" value={productStock} onChange={e => setProductStock(+e.target.value)}/>
+                            <input name="productStock" id="productStock" type="number" required min="0" max="999" value={productStock.toString()} onChange={e => setProductStock(+e.target.value.toString())}/>
                         </div>
                         <button id="addProductButton" type="submit" className="submit_button">Add Product</button>
                     </form>
