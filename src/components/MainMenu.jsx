@@ -6,12 +6,17 @@ import { Link } from "react-router-dom";
 
 const MainMenu = ({inventory}) => {
     const [query, setQuery] = useState("");
-    const todos = ["clear inventory button"];
     const [products, setProducts] = useState(inventory);
     const [_, forceUpdate] = useReducer((x) => x + 1, 0);
 
     const removeProduct = (productName) => {    
         inventory.removeProduct(productName);
+        setProducts(inventory);
+        forceUpdate();
+    }
+
+    const editStock = (productName, newStock) => {
+        inventory.editStock(productName, newStock);
         setProducts(inventory);
         forceUpdate();
     }
@@ -43,7 +48,12 @@ const MainMenu = ({inventory}) => {
                 {products.getProducts().length > 0 ?
                     products.getProducts()
                     .filter(product => product.name.toLowerCase().includes(query.toLowerCase().trim()))
-                    .map(product => <Product key={product.serialCode} product={product} removeProduct={removeProduct} renameProduct={renameProduct}  />
+                    .map(product => <Product 
+                        key={product.serialCode} 
+                        product={product} 
+                        removeProduct={removeProduct}
+                        editStock={editStock} 
+                        renameProduct={renameProduct}  />
                         )
                     :
                     <p>The Inventory is currently empty! Click on Add New Product to add new products!</p>

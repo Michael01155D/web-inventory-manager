@@ -10,9 +10,9 @@ a {
 
 #clearInventoryButton {
     background-color: rgb(223, 148, 163);
-    padding: 1px;
-    font-size: smaller;
-    max-width: 25%;
+    padding: 0.1em 1em;
+    font-size: small;
+    max-width: 30%;
     height: 80%;
     align-self: center;
 }
