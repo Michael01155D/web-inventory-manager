@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../styles/DisplayMessage.css";
 
-const DisplayMessage = ({displayMessage, isError=false}) => {
+const DisplayMessage = ({displayMessage, isError=false, setIs}) => {
     const [display, setDisplay] = useState(displayMessage)
   
     return(
@@ -10,5 +10,13 @@ const DisplayMessage = ({displayMessage, isError=false}) => {
         </>
     )
 }
+
+    export const toggleMessage = (setIsError, setDisplayMsg) => {
+    setTimeout(() => {
+        setIsError(false);
+        setDisplayMsg("");
+    }, 1500);
+}
+
 
 export default DisplayMessage

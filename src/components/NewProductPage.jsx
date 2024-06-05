@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { generateSerialCode } from "../defaultProductCreator";
-import DisplayMessage from "./DisplayMessage";
+import DisplayMessage, { toggleMessage } from "./DisplayMessage";
 import { Link } from "react-router-dom";
 import "../styles/NewProductPage.css";
 
@@ -10,25 +10,18 @@ const NewProductPage = ({inventory}) => {
     const [displayMsg, setDisplayMsg] = useState("");
     const [isError, setIsError] = useState(false);
     //reused from StartingScreen, todo: refactor and put into DisplayMessage or import from seperate file
-    const toggleMessage = () => {
-        setTimeout(() => {
-            setIsError(false);
-            setDisplayMsg("");
-        }, 1500);
-    }
-    
+
     const addNewProduct = (e) => {
         e.preventDefault();
         if (inventory.getProducts().map(product => product.name).includes(productName)) {
-            setDisplayMsg(`Error: ${productName} is already in the Inventory!`);
             setIsError(true);
-            toggleMessage();
+            setDisplayMsg(`Error: ${productName} is already in the Inventory!`);
         } else {
             const newProduct = { name: productName, stock: productStock, serialCode: generateSerialCode(inventory.getProducts())}
             inventory.addProduct(newProduct);
             setDisplayMsg(`${productName} added to the Inventory!`)
-            toggleMessage();
         }
+        toggleMessage(setIsError, setDisplayMsg);
         setProductName("");
         setProductStock(0);
     }
@@ -39,7 +32,6 @@ const NewProductPage = ({inventory}) => {
                 :
                 <></>
         }
-            <DisplayMessage displayMessage={displayMsg} isError={isError} />
             <form onSubmit={addNewProduct} id="createCustomInventoryForm">
                         <div id="nameInputs">
                             <label id="productNameLabel" htmlFor="productName">Product Name: </label>

@@ -4,10 +4,6 @@
     margin: 0;
 }
 
-#nameInputs > input, #stockInputs > input {
-    margin-left: 1em;
-}
-
 #customStart {
    display: flex;
    justify-content: space-between;

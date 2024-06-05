@@ -12,7 +12,7 @@ const RenameProductForm = ({renameProduct, oldName}) => {
         <>
         <form onSubmit={handleSubmit}>
             <label htmlFor="newNameInput">New Product name for {oldName}</label>
-            <input id="newNameInput" value={newName} onChange={(newText) => setNewName(newText.target.value)}/>
+            <input id="newNameInput" value={newName} minLength="2" maxLength="14" onChange={(newText) => setNewName(newText.target.value)}/>
             <button type="submit">Update Name</button>
         </form>
         </>
