@@ -12,3 +12,8 @@
 #detailedProduct > button {
     margin-right: 5px;
 }
+
+#detailedProduct {
+    border: 2px groove black;
+    margin: 2%;
+}

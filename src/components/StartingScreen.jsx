@@ -1,26 +1,19 @@
 import { useState } from "react"
-import Button from './Button';
 import { createNewProduct, generateSerialCode } from "../defaultProductCreator.js";
 import "../styles/Button.css";
 import "../styles/StartingScreen.css"
-import DisplayMessage from "./DisplayMessage.jsx";
+import DisplayMessage, {toggleMessage} from "./DisplayMessage.jsx";
 
 
 const StartingScreen = ({ inventory, setDisplayStart }) => {
     const [startOption, setStartOption] = useState(false);
-    const [numProducts, setNumProducts] = useState("");
+    const [numProducts, setNumProducts] = useState(0);
     const [newProductName, setNewProductName] = useState("");
     const [newProductStock, setNewProductStock] = useState(0);
     //isError/displayMsg used for DisplayMessage component
     const [isError, setIsError] = useState(false);
     const [displayMsg, setDisplayMsg] = useState("");
 
-    const toggleMessage = () => {
-        setTimeout(() => {
-            setIsError(false);
-            setDisplayMsg("");
-        }, 1500)
-    }
     const createDefaultInventory = () => {
         setStartOption("default");
     }
@@ -41,9 +34,9 @@ const StartingScreen = ({ inventory, setDisplayStart }) => {
             setIsError(false);
             setDisplayMsg(`Added ${newProductStock} ${newProductName} to the inventory!`);
         }
-        toggleMessage();
+        toggleMessage(setIsError, setDisplayMsg);
         setNewProductName("");
-        setNewProductStock("")
+        setNewProductStock(0)
     }
     const setUpDefaultInventory = (e) => {
         e.preventDefault();
@@ -61,10 +54,10 @@ const StartingScreen = ({ inventory, setDisplayStart }) => {
     if (!startOption) {
         return (
             <> 
-            <p>Please Choose Between a Default or Custom Starting Inventory</p>
-            <Button label="Default Inventory" handleClick={createDefaultInventory} />
-            <Button label="Custom Inventory" handleClick={createCustomInventory} />
-        </>
+                <p>Please Choose Between a Default or Custom Starting Inventory</p>
+                <button className="startingButton" onClick={() => createDefaultInventory()}>Default Inventory</button>
+                <button className="startingButton" onClick={() => createCustomInventory()}>Custom Inventory</button>
+            </>
         )
     }
 
@@ -81,7 +74,7 @@ const StartingScreen = ({ inventory, setDisplayStart }) => {
                 <form onSubmit={setUpDefaultInventory}>
                     <label htmlFor="startingProducts"> Number of Starting Products (up to 30): </label>
                     <input id="startingProducts" autoFocus name="startingProducts" type="number" min="1" max="30" value={numProducts.toString()} onChange={e => setNumProducts(+e.target.value.toString())}/>
-                    <button type="submit" className="submit_button"> Set Up Inventory</button>
+                    <button type="submit" className="submitButton"> Set Up Inventory</button>
                 </form>
             </>
             :
@@ -96,9 +89,9 @@ const StartingScreen = ({ inventory, setDisplayStart }) => {
                             <label id="productStockLabel" htmlFor="productStock">Starting Quantity (0 to 999): </label>
                             <input name="productStock" id="productStock" type="number" required min="0" max="999" value={newProductStock.toString()} onChange={e => setNewProductStock(+e.target.value.toString())}/>
                         </div>
-                        <button id="addProductButton" type="submit" className="submit_button">Add Product</button>
+                        <button id="addProductButton" type="submit" className="submitButton">Add Product</button>
                     </form>
-                    <Button label={"Done"} id="done" handleClick={setUpCustomInventory}/>
+                    <button  id="doneCustomSetup" onClick={() => setUpCustomInventory()}>Done</button>
                 </section>
                 <section id="itemsAdded">
                     {inventory.getProducts().length > 0 ?

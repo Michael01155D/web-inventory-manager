@@ -2,6 +2,7 @@ a {
     display: block;
     margin-bottom: 5%;
     padding: 1%;
+    text-decoration: underline;
 }
 
 #addProductButton {

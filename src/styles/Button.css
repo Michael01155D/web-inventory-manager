@@ -1,10 +1,28 @@
-.Button {
-    margin: 2%;
-    background-color: aquamarine;
+:root {
+    --button-bg-color: skyblue;
 }
 
-.submit_button {
+.startingButton, button {
+    margin: 2%;
+    background-color: var(--button-bg-color);
+}
+
+.submitButton {
     margin-top: 1%;
     margin-left: 1%;
-    background-color: aquamarine;
+    background-color: var(--button-bg-color);
+}
+
+#doneCustomSetup{
+    background-color: var(--button-bg-color);
+    margin-top: 8%;
+}   
+
+#editStockButton, #renameProductButton, #removeProductButton {
+    background-color:  var(--button-bg-color);
+}
+
+#toggleProductView {
+    font-size: .8em;
+    background-color: var(--button-bg-color);
 }

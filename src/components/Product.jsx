@@ -1,10 +1,11 @@
 import { useState } from "react";
 import "../styles/Product.css";
+import "../styles/Button.css";
 import EditStockForm from './EditStockForm.jsx';
 import RenameProductForm from './RenameProductForm';
 
 const Product = ({product, removeProduct, renameProduct, editStock}) => {
-    const todos = ["Modify Product Stock"]
+  
     const [showDetails, setShowDetails] = useState(false);
     const [displayStockForm, setDisplayStockForm] = useState(false);
     const [displayRenameForm, setDisplayRenameForm] = useState(false);
@@ -36,7 +37,6 @@ const Product = ({product, removeProduct, renameProduct, editStock}) => {
             :<></>
             }
             
-
             <button id="toggleProductView" onClick={() => toggleDisplay()}>{showDetails ? "Hide details" : "Show details "}</button>
         </section>
     )
