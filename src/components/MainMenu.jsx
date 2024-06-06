@@ -11,7 +11,7 @@ const MainMenu = ({inventory}) => {
     const [_, forceUpdate] = useReducer((x) => x + 1, 0);
     const [displayMsg, setDisplayMsg] = useState("");
     const [isError, setIsError] = useState(false);
-
+    const [displayAllDetails, setDisplayAllDetails] = useState(false);
     const removeProduct = (productName) => {    
         inventory.removeProduct(productName);
         setProducts(inventory);
@@ -60,6 +60,7 @@ const MainMenu = ({inventory}) => {
             }
             <section id="inventoryList">
                 <h3>Inventory List:</h3>
+                <button id="toggleAllDetails" onClick={() => setDisplayAllDetails(!displayAllDetails)}>{displayAllDetails ? "Hide all details" : "Show all details"}</button>
                 {products.getProducts().length > 0 ?
                     products.getProducts()
                     .filter(product => product.name.toLowerCase().includes(query.toLowerCase().trim()))
@@ -68,7 +69,9 @@ const MainMenu = ({inventory}) => {
                         product={product} 
                         removeProduct={removeProduct}
                         editStock={editStock} 
-                        renameProduct={renameProduct}  />
+                        renameProduct={renameProduct}
+                        displayAllDetails={displayAllDetails}  
+                        />
                         )
                     :
                     <p>The Inventory is currently empty! Click on Add New Product to add new products!</p>
