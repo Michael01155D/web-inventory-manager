@@ -16,5 +16,8 @@
 #detailedProduct {
     border: 2px groove black;
     margin: 2%;
-    font-size: small;
+}
+
+#serialCode {
+    display: block;
 }

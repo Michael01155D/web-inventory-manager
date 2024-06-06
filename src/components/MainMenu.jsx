@@ -7,20 +7,20 @@ import DisplayMessage, { toggleMessage } from "./DisplayMessage";
 
 const MainMenu = ({inventory}) => {
     const [query, setQuery] = useState("");
-    const [products, setProducts] = useState(inventory);
+    const [products, setProducts] = useState(inventory.getProducts());
     const [_, forceUpdate] = useReducer((x) => x + 1, 0);
     const [displayMsg, setDisplayMsg] = useState("");
     const [isError, setIsError] = useState(false);
     const [displayAllDetails, setDisplayAllDetails] = useState(false);
     const removeProduct = (productName) => {    
         inventory.removeProduct(productName);
-        setProducts(inventory);
+        setProducts(inventory.getProducts());
         forceUpdate();
     }
 
     const editStock = (productName, newStock) => {
         inventory.editStock(productName, newStock);
-        setProducts(inventory);
+        setProducts(inventory.getProducts());
         forceUpdate();
     }
 
@@ -31,7 +31,7 @@ const MainMenu = ({inventory}) => {
         } else {
             setDisplayMsg(`Successfully renamed ${oldName} to ${newName}`);
             inventory.renameProduct(newName, oldName);
-            setProducts(inventory);
+            setProducts(inventory.getProducts());
             forceUpdate();
         }
         toggleMessage(setIsError, setDisplayMsg);
@@ -40,11 +40,10 @@ const MainMenu = ({inventory}) => {
     const clearInventoryPrompt = () => {
         if (window.confirm("Warning! This is an irreversable action. Do you want to reset the Inventory?")) {
             inventory.clearInventory();
-            setProducts(inventory);
+            setProducts(inventory.getProducts());
             forceUpdate();
         }
     }
-
     //todo: once db is implemented, add Link for each Product to link to /products/:id for detail screen
     return(
         <main id="mainMenuScreen">
@@ -58,23 +57,26 @@ const MainMenu = ({inventory}) => {
                 :
                 <></>
             }
+
             <section id="inventoryList">
                 <h3>Inventory List:</h3>
-                <button id="toggleAllDetails" onClick={() => setDisplayAllDetails(!displayAllDetails)}>{displayAllDetails ? "Hide all details" : "Show all details"}</button>
-                {products.getProducts().length > 0 ?
-                    products.getProducts()
-                    .filter(product => product.name.toLowerCase().includes(query.toLowerCase().trim()))
-                    .map(product => <Product 
-                        key={product.serialCode} 
-                        product={product} 
-                        removeProduct={removeProduct}
-                        editStock={editStock} 
-                        renameProduct={renameProduct}
-                        displayAllDetails={displayAllDetails}  
-                        />
-                        )
-                    :
-                    <p>The Inventory is currently empty! Click on Add New Product to add new products!</p>
+                {products.length > 0 ?
+                    [
+                        <button id="toggleAllDetails" onClick={() => setDisplayAllDetails(!displayAllDetails)}>{displayAllDetails ? "Hide all details" : "Show all details"}</button>,
+                        products
+                        .filter(product => product.name.toLowerCase().includes(query.toLowerCase().trim()))
+                        .map(product => <Product 
+                            key={product.serialCode} 
+                            product={product} 
+                            removeProduct={removeProduct}
+                            editStock={editStock} 
+                            renameProduct={renameProduct}
+                            displayAllDetails={displayAllDetails}  
+                            />
+                        ),
+                    ]
+                        :
+                        <p>The Inventory is currently empty! Click on Add New Product to add new products!</p>
                 }
             </section>
         </main>
