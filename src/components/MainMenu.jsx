@@ -62,7 +62,7 @@ const MainMenu = ({inventory}) => {
                 <h3>Inventory List:</h3>
                 {products.length > 0 ?
                     [
-                        <button id="toggleAllDetails" onClick={() => setDisplayAllDetails(!displayAllDetails)}>{displayAllDetails ? "Hide all details" : "Show all details"}</button>,
+                        <button key="detailsButton" id="toggleAllDetails" onClick={() => setDisplayAllDetails(!displayAllDetails)}>{displayAllDetails ? "Hide all details" : "Show all details"}</button>,
                         products
                         .filter(product => product.name.toLowerCase().includes(query.toLowerCase().trim()))
                         .map(product => <Product 

@@ -22,7 +22,7 @@ const Product = ({product, removeProduct, renameProduct, editStock, displayAllDe
     
     return(
         <section id="productView">
-            {showDetails && displayAllDetails ?
+            { showDetails  ?
                 <section id="detailedProduct"> 
                     <p> {product.name} | Current Stock: {product.stock} <span id="serialCode"> Serial Code: {product.serialCode} </span></p>
                     <button id="editStockButton" onClick={() => setDisplayStockForm(!displayStockForm) }>Edit Stock</button>
