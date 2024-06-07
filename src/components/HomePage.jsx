@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import StartingScreen from "./StartingScreen";
 import MainMenu from "./MainMenu";
+import { addProduct } from "../../backend";
 const HomePage = ({ inventory }) => {
    const [displayStart, setDisplayStart] = useState(true);
 
@@ -10,6 +11,16 @@ const HomePage = ({ inventory }) => {
         setDisplayStart(false);
     }
    }, [])
+
+   const writeToDb = async() => {
+    await addProduct({name: "testingPOST", stock: "111"});
+  }
+  //temporary debugging
+  if (true) {
+    return (
+      <button onClick={() => writeToDb()}>testing POST method</button>
+    )
+  }
 
     return( 
         <>
