@@ -1,46 +1,5 @@
 {
   "products": [
-    {
-      "0": {
-        "name": "testProduct",
-        "stock": "777",
-        "serialCode": {},
-        "id": "130e"
-      },
-      "1": {
-        "name": "testingPOST",
-        "stock": "111",
-        "serialCode": "m4Y3y2F0p8R3"
-      },
-      "id": "f022"
-    },
-    {
-      "0": {
-        "name": "testProduct",
-        "stock": "777",
-        "serialCode": {},
-        "id": "130e"
-      },
-      "1": {
-        "0": {
-          "name": "testProduct",
-          "stock": "777",
-          "serialCode": {},
-          "id": "130e"
-        },
-        "1": {
-          "name": "testingPOST",
-          "stock": "111",
-          "serialCode": "m4Y3y2F0p8R3"
-        },
-        "id": "f022"
-      },
-      "2": {
-        "name": "testingPOST",
-        "stock": "111",
-        "serialCode": "Z7U4k4Z5p8H6"
-      },
-      "id": "2c46"
-    }
+
   ]
 }

@@ -20,6 +20,25 @@
 const URL = "http://localhost:3000/products";
 
 const updateDb = async (data) => {
+    if (data) {
+        const res = await fetch(URL, {
+            method: "POST",
+            mode: "cors",
+            cache: "no-cache",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            referrerPolicy: "no-referrer",
+            body: JSON.stringify(data)
+        });
+        return res.json();
+    }
+}
+
+//current todo: fix addProduct so that it doesnt mess w. json file structure (should be arr of objs)
+const addProduct = async (newProduct) => {
+    const newCode = await generateSerialCode();
+    const toAdd = {...newProduct, serialCode: newCode};
     const res = await fetch(URL, {
         method: "POST",
         mode: "cors",
@@ -28,45 +47,46 @@ const updateDb = async (data) => {
             "Content-Type": "application/json",
         },
         referrerPolicy: "no-referrer",
-        body: JSON.stringify(data)
+        body: JSON.stringify(toAdd)
     });
     return res.json();
-}
-
-const addProduct = async (newProduct) => {
-    const newCode = await generateSerialCode();
-    const toAdd = {...newProduct, serialCode: newCode};
-    const products = await getProducts();
-    products.push(toAdd);
-    const res = await updateDb(products);
 }
 
 const getProducts = async (req, res) => {
     const data = await fetch(URL);
     const body = await data.json();
-    return body;
+    return body.length > 0 ? body : [];
 }
 
-const renameProduct = (newName, oldName) => {
-    products = products.map(product => product.name == oldName ? {...product, name: newName} : product);
-    updateDb(products);
+//todo: this doesnt work at all, figure out why. 
+const renameProduct = async (newName, oldName) => {
+    const products = await getProducts();
+    console.log("in renameProduct, products after GET are:", (products))
+    const newProducts = products.map(product => product.name == oldName ? {...product, name: newName} : product);
+    console.log("after rename map, newProducts are", newProducts);
+    const res = await updateDb(newProducts);
+    return res;
 }
 
-const editStock = (productName, newStock) => {
-    products = products.map(p => p.name == productName ? {...p, stock: newStock} : p);
-    updateDb(products);
+const editStock = async (productName, newStock) => {
+    const products = await getProducts();
+    const newProducts = products.map(p => p.name == productName ? {...p, stock: newStock} : p);
+    const res = await updateDb(newProducts)
+    return res;
 }
 
-const removeProduct = (productName) => {
-    products = products.filter(p => p.name !== productName);
-    updateDb(products);
+const removeProduct = async (productName) => {
+    const products = await getProducts();
+    const newProducts = products.filter(p => p.name !== productName);
+    const res = await updateDb(newProducts);
+    return res;
 }
 
-const clearInventory = () => {
-    products = [];
-    updateDb(products);
+const clearInventory = async () => {
+    const products = [];
+    const res = await updateDb(products).then(response => console.log(response));
+    return res;
 }
-
 
 const generateSerialCode = async () => {
     const alpha = "abcdefghijklmnopqrstuvwxyz".split("").map(char => char + char.toUpperCase()).join("").split("");
