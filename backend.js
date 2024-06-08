@@ -19,22 +19,6 @@
 
 const URL = "http://localhost:3000/products";
 
-const updateDb = async (data) => {
-    if (data) {
-        const res = await fetch(URL, {
-            method: "POST",
-            mode: "cors",
-            cache: "no-cache",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            referrerPolicy: "no-referrer",
-            body: JSON.stringify(data)
-        });
-        return res.json();
-    }
-}
-
 //current todo: fix addProduct so that it doesnt mess w. json file structure (should be arr of objs)
 const addProduct = async (newProduct) => {
     const newCode = await generateSerialCode();
@@ -52,20 +36,35 @@ const addProduct = async (newProduct) => {
     return res.json();
 }
 
-const getProducts = async (req, res) => {
+const getProducts = async () => {
     const data = await fetch(URL);
     const body = await data.json();
     return body.length > 0 ? body : [];
 }
 
-//todo: this doesnt work at all, figure out why. 
-const renameProduct = async (newName, oldName) => {
-    const products = await getProducts();
-    console.log("in renameProduct, products after GET are:", (products))
-    const newProducts = products.map(product => product.name == oldName ? {...product, name: newName} : product);
-    console.log("after rename map, newProducts are", newProducts);
-    const res = await updateDb(newProducts);
-    return res;
+const getProductById = async (id) => {
+    const data = await fetch(`${URL}/${id}`);
+    const product = await data.json();
+    return product ? product : {};
+}
+
+const renameProduct = async (updatedProduct) => {
+    console.log("in backend rename, updatedProduct is ", updatedProduct)
+        if (updatedProduct) {
+        const request = await fetch(`${URL}/${updatedProduct.id}`, {
+            method: "PUT",
+            mode: "cors",
+            cache: "no-cache",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            referrerPolicy: "no-referrer",
+            body: JSON.stringify(updatedProduct)
+        });
+        const response = await request.json()
+        console.log("response is,", response);
+       
+    }
 }
 
 const editStock = async (productName, newStock) => {
@@ -111,4 +110,4 @@ const generateSerialCode = async () => {
     return code;
 };
 
-export {addProduct, getProducts, renameProduct, editStock, removeProduct, clearInventory };
+export { addProduct, getProducts, renameProduct, editStock, removeProduct, clearInventory };

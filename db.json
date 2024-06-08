@@ -1,5 +1,16 @@
 {
   "products": [
-
+    {
+      "id": "a0f1",
+      "name": "renamed",
+      "stock": "111",
+      "serialCode": "V3B4Z8F6w2o7"
+    },
+    {
+      "id": "4636",
+      "name": "testingAdd",
+      "stock": "111",
+      "serialCode": "A0X0G6s6e8d1"
+    }
   ]
 }
