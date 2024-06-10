@@ -34,20 +34,20 @@ const HomePage = ({ inventory, moo }) => {
       setProducts(updatedProducts);
     }
     else {
-      console.log("Error, product with name: ", oldName + " not found in inventory.")
+      console.log("Error, product not found in inventory.")
     }
   }
 
-  const testEditStock = async(productName, newStock) => {
-    const product = products.find(prod => prod.name == productName)
+  const testEditStock = async(newStock, id) => {
+    const product = products.find(prod => prod.id == id)
     if (product != undefined) {
       const updatedProduct = {...product, stock: newStock};
       await updateProduct(updatedProduct);
     }
   }
 
-  const testRemove = async (productName) => {
-    const product = products.find(prod => prod.name == productName);
+  const testRemove = async (productId) => {
+    const product = products.find(prod => prod.id == productId);
     await removeProduct(product);
   }
 
@@ -60,9 +60,9 @@ const HomePage = ({ inventory, moo }) => {
         <>
         {products ? products.map(p => <p>{p.name}</p>) : <></>}
       <button onClick={() => addNewProduct()}>testing addProduct</button>
-      <button onClick={() => testReName("renamed", "testingAdd")}>Testing Rename </button>
-      <button onClick={() => testEditStock("renamed", "999")}>Testing stock edit </button>
-      <button onClick={() => testRemove("renamed")}>Testing Remove </button>
+      <button onClick={() => testReName("renamed", products[0].id)}>Testing Rename </button>
+      <button onClick={() => testEditStock("999", products[0].id)}>Testing stock edit </button>
+      <button onClick={() => testRemove(products[0].id)}>Testing Remove </button>
       <button onClick={() => testClear()}>Testing Clear </button>
         </>
 
