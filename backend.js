@@ -19,7 +19,8 @@
 
 const URL = "http://localhost:3000/products";
 
-//current todo: fix addProduct so that it doesnt mess w. json file structure (should be arr of objs)
+//current todo: implement edit stock, remove product, and clear inventory
+
 const addProduct = async (newProduct) => {
     const newCode = await generateSerialCode();
     const toAdd = {...newProduct, serialCode: newCode};
@@ -48,8 +49,8 @@ const getProductById = async (id) => {
     return product ? product : {};
 }
 
-const renameProduct = async (updatedProduct) => {
-    console.log("in backend rename, updatedProduct is ", updatedProduct)
+const updateProduct = async (updatedProduct) => {
+
         if (updatedProduct) {
         const request = await fetch(`${URL}/${updatedProduct.id}`, {
             method: "PUT",
@@ -62,29 +63,22 @@ const renameProduct = async (updatedProduct) => {
             body: JSON.stringify(updatedProduct)
         });
         const response = await request.json()
-        console.log("response is,", response);
-       
+        console.log("response in updateProduct is, ", response)
+       return response;
     }
 }
 
-const editStock = async (productName, newStock) => {
-    const products = await getProducts();
-    const newProducts = products.map(p => p.name == productName ? {...p, stock: newStock} : p);
-    const res = await updateDb(newProducts)
-    return res;
-}
-
-const removeProduct = async (productName) => {
-    const products = await getProducts();
-    const newProducts = products.filter(p => p.name !== productName);
-    const res = await updateDb(newProducts);
-    return res;
+const removeProduct = async (product) => {
+    if (product) {
+        await fetch(`${URL}/${product.id}`, {
+            method: "DELETE",
+        })
+    }
 }
 
 const clearInventory = async () => {
-    const products = [];
-    const res = await updateDb(products).then(response => console.log(response));
-    return res;
+    const products = await getProducts();
+    products.map(async product => await removeProduct(product));
 }
 
 const generateSerialCode = async () => {
@@ -110,4 +104,4 @@ const generateSerialCode = async () => {
     return code;
 };
 
-export { addProduct, getProducts, renameProduct, editStock, removeProduct, clearInventory };
+export { addProduct, getProducts, updateProduct, removeProduct, clearInventory };

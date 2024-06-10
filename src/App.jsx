@@ -4,18 +4,18 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Inventory from './Inventory.js';
 import HomePage from './components/HomePage.jsx';
 import NewProductPage from './components/NewProductPage.jsx';
-import {addProduct, getProducts, renameProduct, editStock, removeProduct, clearInventory} from '../backend.js';
+import {getProducts} from '../backend.js';
 
 const App = () => {
   //todo: replace inventory object with DB collection fetched by server
   //moo is temporary to test json-server before refactoring App to fetch inventory from db.json
-  const [moo, setMoo] = useState("")
+  const [moo, setMoo] = useState([])
   useEffect( () => {
     getProducts().then((res) =>{
       setMoo(res);
     })
   }, [])
-  console.log('moo is, ', moo)
+
   const inventory = useRef(new Inventory())
   return (
     <BrowserRouter>
