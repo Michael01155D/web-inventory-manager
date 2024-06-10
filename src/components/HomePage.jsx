@@ -43,22 +43,29 @@ const HomePage = ({ inventory, moo }) => {
     if (product != undefined) {
       const updatedProduct = {...product, stock: newStock};
       await updateProduct(updatedProduct);
+      const updatedProducts = products.map(p => p.id == id ? updatedProduct : p)
+      setProducts(updatedProducts);
+    } else {
+      console.log("Error, product not found in inventory");
     }
   }
 
-  const testRemove = async (productId) => {
-    const product = products.find(prod => prod.id == productId);
+  const testRemove = async (id) => {
+    const product = products.find(prod => prod.id == id);
     await removeProduct(product);
+    const updatedProducts = products.filter(p => p.id !== id);
+    setProducts(updatedProducts);
   }
 
   const testClear = async () => {
     await clearInventory();
+    setProducts([]);
   }
   //temporary debugging
   if (true) {
     return (
         <>
-        {products ? products.map(p => <p>{p.name}</p>) : <></>}
+        {products ? products.map(p => <p>{p.name}, {p.stock}</p>) : <></>}
       <button onClick={() => addNewProduct()}>testing addProduct</button>
       <button onClick={() => testReName("renamed", products[0].id)}>Testing Rename </button>
       <button onClick={() => testEditStock("999", products[0].id)}>Testing stock edit </button>
