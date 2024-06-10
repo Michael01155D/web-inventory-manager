@@ -4,44 +4,40 @@ import Product from './Product';
 import SearchBar from "./SearchBar";
 import { Link } from "react-router-dom";
 import DisplayMessage, { toggleMessage } from "./DisplayMessage";
+import { clearInventory } from "../../backend";
 
-const MainMenu = ({inventory}) => {
+const MainMenu = ({inventory, setInventory}) => {
     const [query, setQuery] = useState("");
-    const [products, setProducts] = useState(inventory.getProducts());
     const [_, forceUpdate] = useReducer((x) => x + 1, 0);
     const [displayMsg, setDisplayMsg] = useState("");
     const [isError, setIsError] = useState(false);
     const [displayAllDetails, setDisplayAllDetails] = useState(false);
     const removeProduct = (productName) => {    
         inventory.removeProduct(productName);
-        setProducts(inventory.getProducts());
         forceUpdate();
     }
 
     const editStock = (productName, newStock) => {
         inventory.editStock(productName, newStock);
-        setProducts(inventory.getProducts());
         forceUpdate();
     }
 
     const renameProduct = (newName, oldName) => {
-        if (inventory.getProducts().map(product => product.name.toLowerCase().trim()).includes(newName.toLowerCase().trim())){
+        if (inventory.map(product => product.name.toLowerCase().trim()).includes(newName.toLowerCase().trim())){
             setDisplayMsg(`Error: ${newName} is already in the Inventory! Please remove it before changing ${oldName} `);
             setIsError(true);
         } else {
             setDisplayMsg(`Successfully renamed ${oldName} to ${newName}`);
             inventory.renameProduct(newName, oldName);
-            setProducts(inventory.getProducts());
             forceUpdate();
         }
         toggleMessage(setIsError, setDisplayMsg);
     }
 
-    const clearInventoryPrompt = () => {
+    const clearInventoryPrompt = async() => {
         if (window.confirm("Warning! This is an irreversable action. Do you want to reset the Inventory?")) {
-            inventory.clearInventory();
-            setProducts(inventory.getProducts());
-            forceUpdate();
+            await clearInventory();
+            setInventory([]);
         }
     }
     //todo: once db is implemented, add Link for each Product to link to /products/:id for detail screen
@@ -60,10 +56,10 @@ const MainMenu = ({inventory}) => {
 
             <section id="inventoryList">
                 <h3>Inventory List:</h3>
-                {products.length > 0 ?
+                {inventory.length > 0 ?
                     [
                         <button key="detailsButton" id="toggleAllDetails" onClick={() => setDisplayAllDetails(!displayAllDetails)}>{displayAllDetails ? "Hide all details" : "Show all details"}</button>,
-                        products
+                        inventory
                         .filter(product => product.name.toLowerCase().includes(query.toLowerCase().trim()))
                         .map(product => <Product 
                             key={product.serialCode} 

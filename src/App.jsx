@@ -1,27 +1,27 @@
-import {useEffect, useRef, useState} from 'react'
+import {useEffect, useState} from 'react'
 import './App.css'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Inventory from './Inventory.js';
 import HomePage from './components/HomePage.jsx';
 import NewProductPage from './components/NewProductPage.jsx';
 import {getProducts} from '../backend.js';
 
 const App = () => {
-  //todo: replace inventory object with DB collection fetched by server
-  //moo is temporary to test json-server before refactoring App to fetch inventory from db.json
-  const [moo, setMoo] = useState([])
+  //current WIP: refactoring app to use db.json for inventory data
+
+  const [inventory, setInventory] = useState([])
   useEffect( () => {
     getProducts().then((res) =>{
-      setMoo(res);
+      setInventory(res);
     })
   }, [])
 
-  const inventory = useRef(new Inventory())
+  console.log("in App.jsx, inventory is ", inventory)
+
   return (
     <BrowserRouter>
       <Routes> 
-          <Route path='/' element={<HomePage inventory={inventory.current} moo={moo}/>}/>
-          <Route path='/add' element={<NewProductPage inventory={inventory.current}/>}/>
+          <Route path='/' element={<HomePage inventory={inventory} setInventory={setInventory} />}/>
+          <Route path='/add' element={<NewProductPage inventory={inventory}/>}/>
       </Routes>
     </BrowserRouter>
   )

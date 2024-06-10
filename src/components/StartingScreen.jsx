@@ -1,11 +1,12 @@
 import { useState } from "react"
-import { createNewProduct, generateSerialCode } from "../defaultProductCreator.js";
+import { createDefaultProduct } from "../defaultProductCreator.js";
 import "../styles/Button.css";
 import "../styles/StartingScreen.css"
 import DisplayMessage, {toggleMessage} from "./DisplayMessage.jsx";
+import { addProduct } from "../../backend.js";
 
 
-const StartingScreen = ({ inventory, setDisplayStart }) => {
+const StartingScreen = ({ inventory, setInventory, setDisplayStart }) => {
     const [startOption, setStartOption] = useState(false);
     const [numProducts, setNumProducts] = useState(0);
     const [newProductName, setNewProductName] = useState("");
@@ -13,6 +14,8 @@ const StartingScreen = ({ inventory, setDisplayStart }) => {
     //isError/displayMsg used for DisplayMessage component
     const [isError, setIsError] = useState(false);
     const [displayMsg, setDisplayMsg] = useState("");
+
+    console.log("in global startscreen, inventory is", inventory)
 
     const createDefaultInventory = () => {
         setStartOption("default");
@@ -22,15 +25,14 @@ const StartingScreen = ({ inventory, setDisplayStart }) => {
         setStartOption("custom");
     }
 
-    const addNewProduct = (e) => {
+    const addNewProduct = async (e) => {
         e.preventDefault();
-        const currentProducts = inventory.getProducts();
-        if (currentProducts.map(p => p.name).includes(newProductName)) {
+        if (inventory.map(p => p.name).includes(newProductName)) {
             setIsError(true)
             setDisplayMsg(`Error: ${newProductName} is already in the inventory!`);            
         } else {
-            const newProduct = {name: newProductName, stock: newProductStock, serialCode: generateSerialCode(currentProducts)};
-            inventory.addProduct(newProduct);
+            const newProduct = {name: newProductName, stock: newProductStock };
+            await addProduct(newProduct);
             setIsError(false);
             setDisplayMsg(`Added ${newProductStock} ${newProductName} to the inventory!`);
         }
@@ -38,12 +40,25 @@ const StartingScreen = ({ inventory, setDisplayStart }) => {
         setNewProductName("");
         setNewProductStock(0)
     }
-    const setUpDefaultInventory = (e) => {
+
+    const addDefaultProduct = async () => {
+        const newProduct = createDefaultProduct(inventory);
+        const postedProduct = await addProduct(newProduct);
+        return postedProduct;
+    }
+
+    //current task: fix this.
+    const setUpDefaultInventory = async (e) => {
         e.preventDefault();
+        let startingProducts = [];
         if (isNaN(numProducts)) {return}
         for (let i = 0; i < numProducts; i++) {
-            inventory.addProduct(createNewProduct(inventory.getProducts()));
+            const newProduct = createDefaultProduct(startingProducts);
+            startingProducts = startingProducts.concat(newProduct);
         }
+        const promises = startingProducts.map(p => addProduct(p));
+        const createProducts = await Promise.all(promises);
+        setInventory(createProducts);
         setDisplayStart(false);
     }
 
@@ -94,11 +109,11 @@ const StartingScreen = ({ inventory, setDisplayStart }) => {
                     <button  id="doneCustomSetup" onClick={() => setUpCustomInventory()}>Done</button>
                 </section>
                 <section id="itemsAdded">
-                    {inventory.getProducts().length > 0 ?
+                    {inventory.length > 0 ?
                         <>
                             <p>Items added:</p>
                             <ul>
-                                {inventory.getProducts().map(p => <li key={p.serialCode}>{p.name}</li>)}
+                                {inventory.map(p => <li key={p.serialCode}>{p.name}</li>)}
                             </ul>
                         </>
                         :

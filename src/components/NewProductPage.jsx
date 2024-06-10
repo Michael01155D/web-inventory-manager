@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { generateSerialCode } from "../defaultProductCreator";
 import DisplayMessage, { toggleMessage } from "./DisplayMessage";
 import { Link } from "react-router-dom";
 import "../styles/NewProductPage.css";
@@ -13,11 +12,11 @@ const NewProductPage = ({inventory}) => {
 
     const addNewProduct = (e) => {
         e.preventDefault();
-        if (inventory.getProducts().map(product => product.name).includes(productName)) {
+        if (inventory.map(product => product.name).includes(productName)) {
             setIsError(true);
             setDisplayMsg(`Error: ${productName} is already in the Inventory!`);
         } else {
-            const newProduct = { name: productName, stock: productStock, serialCode: generateSerialCode(inventory.getProducts())}
+            const newProduct = { name: productName, stock: productStock}
             inventory.addProduct(newProduct);
             setDisplayMsg(`${productName} added to the Inventory!`)
         }

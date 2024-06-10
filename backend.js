@@ -85,8 +85,7 @@ const generateSerialCode = async () => {
     const alpha = "abcdefghijklmnopqrstuvwxyz".split("").map(char => char + char.toUpperCase()).join("").split("");
     const num = "0123456789".split("");
     let code = "";
-    const products = await getProducts();
-    console.log("in generateSerial code, products is", products);   
+    const products = await getProducts(); 
     do {
         for (let i = 0; i < 12; i++) {
             if (i % 2 == 0) {
