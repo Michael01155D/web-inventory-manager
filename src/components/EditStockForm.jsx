@@ -1,17 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { updateProduct } from '../../backend';
 
-const EditStockForm = ({ editStock, productName}) => {
+const EditStockForm = ({ product, setProductData }) => {
     const [newStock, setNewStock] = useState(0);
-
-    const handleSubmit = (e) => {
+    
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        editStock(productName, newStock);
+        const updatedProduct = {...product, stock: newStock}; 
+        await updateProduct(updatedProduct)
+        setProductData(updatedProduct)
     }
+
 
     return (
         <>
         <form onSubmit={handleSubmit}>
-            <label htmlFor="newStockInput">New Stock Amount for {productName} (0-999)</label>
+            <label htmlFor="newStockInput">New Stock Amount for {product.name} (0-999)</label>
             <input id="newStockInput" type='number' value={newStock.toString()}
                 min="0" max="999"
              onChange={(newStock) => setNewStock(newStock.target.value.toString())}/>

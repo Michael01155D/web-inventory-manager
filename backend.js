@@ -1,5 +1,3 @@
-//import data from "./db.json" with { type: "json"};
-
 //todo: learn express and change backend to express
 //import express from 'express';
 // const server = express();
@@ -19,7 +17,6 @@
 
 const URL = "http://localhost:3000/products";
 
-//current todo: implement edit stock, remove product, and clear inventory
 
 const addProduct = async (newProduct) => {
     const newCode = await generateSerialCode();

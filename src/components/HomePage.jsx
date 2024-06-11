@@ -12,7 +12,6 @@ const HomePage = ({ inventory, setInventory }) => {
     }
    }, [inventory])
 
-   console.log('in homepage, inventory is:', inventory)
     return( 
         <>
         { displayStart ?

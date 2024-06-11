@@ -3,12 +3,15 @@ import "../styles/Product.css";
 import "../styles/Button.css";
 import EditStockForm from './EditStockForm.jsx';
 import RenameProductForm from './RenameProductForm';
+import { removeProduct } from '../../backend.js';
 
-const Product = ({product, removeProduct, renameProduct, editStock, displayAllDetails}) => {
+const Product = ( {product, displayAllDetails, allowRename } ) => {
   
     const [showDetails, setShowDetails] = useState(displayAllDetails);
     const [displayStockForm, setDisplayStockForm] = useState(false);
     const [displayRenameForm, setDisplayRenameForm] = useState(false);
+    //used to re-render component on PUT:
+    const [productData, setProductData] = useState(product);
 
     useEffect(() => {
         setShowDetails(displayAllDetails);
@@ -19,26 +22,26 @@ const Product = ({product, removeProduct, renameProduct, editStock, displayAllDe
         setDisplayRenameForm(false);
         setDisplayStockForm(false);
     }
-    
+
     return(
         <section id="productView">
             { showDetails  ?
                 <section id="detailedProduct"> 
-                    <p> {product.name} | Current Stock: {product.stock} <span id="serialCode"> Serial Code: {product.serialCode} </span></p>
+                    <p> {productData.name} | Current Stock: {productData.stock} <span id="serialCode"> Serial Code: {productData.serialCode} </span></p>
                     <button id="editStockButton" onClick={() => setDisplayStockForm(!displayStockForm) }>Edit Stock</button>
                     <button  id="renameProductButton" onClick={() => setDisplayRenameForm(!displayRenameForm)}>Rename Product</button>
-                    <button id="removeProductButton" onClick={() => removeProduct(product.name)}>Remove Product</button>
+                    <button id="removeProductButton" onClick={() => removeProduct(productData.name)}>Remove Product</button>
                 </section>
                  :
-                <p>{product.name}</p>
+                <p>{productData.name}</p>
             }
             {displayStockForm && (showDetails || displayAllDetails) ? 
-            <EditStockForm editStock={editStock} productName={product.name} />
+            <EditStockForm product={product} setProductData={setProductData} />
             :<></>
 
             }
             {displayRenameForm  && (showDetails || displayAllDetails) ? 
-                <RenameProductForm renameProduct={renameProduct} oldName={product.name}/>
+                <RenameProductForm allowRename={allowRename} product={product} setProductData={setProductData} />
             :<></>
             }
             

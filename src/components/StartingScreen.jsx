@@ -15,8 +15,6 @@ const StartingScreen = ({ inventory, setInventory, setDisplayStart }) => {
     const [isError, setIsError] = useState(false);
     const [displayMsg, setDisplayMsg] = useState("");
 
-    console.log("in global startscreen, inventory is", inventory)
-
     const createDefaultInventory = () => {
         setStartOption("default");
     }
@@ -41,13 +39,6 @@ const StartingScreen = ({ inventory, setInventory, setDisplayStart }) => {
         setNewProductStock(0)
     }
 
-    const addDefaultProduct = async () => {
-        const newProduct = createDefaultProduct(inventory);
-        const postedProduct = await addProduct(newProduct);
-        return postedProduct;
-    }
-
-    //current task: fix this.
     const setUpDefaultInventory = async (e) => {
         e.preventDefault();
         let startingProducts = [];

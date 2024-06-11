@@ -1,3 +1,136 @@
 {
-  "products": []
+  "products": [
+    {
+      "id": "8f97",
+      "name": "Dry Dog Food",
+      "stock": 179,
+      "serialCode": "y0v0t8W7S2Y3"
+    },
+    {
+      "id": "bcce",
+      "name": "Frozen Pizza",
+      "stock": 377,
+      "serialCode": "o6E3q6V5b2p5"
+    },
+    {
+      "id": "c259",
+      "name": "Dry Cat Food",
+      "stock": 367,
+      "serialCode": "L0g7I4a5l7t5"
+    },
+    {
+      "id": "ae65",
+      "name": "Cat Treats",
+      "stock": 15,
+      "serialCode": "l1f5y2o1O2b7"
+    },
+    {
+      "id": "5ecd",
+      "name": "Red Apple",
+      "stock": 759,
+      "serialCode": "Z8i8i5T8U5y8"
+    },
+    {
+      "id": "a3af",
+      "name": "2% Milk",
+      "stock": 928,
+      "serialCode": "i5n5y5s2j2n7"
+    },
+    {
+      "id": "a166",
+      "name": "Peanut Butter",
+      "stock": 54,
+      "serialCode": "K6N7p2o7N3Q3"
+    },
+    {
+      "id": "cc49",
+      "name": "Blueberry Container",
+      "stock": 323,
+      "serialCode": "n1N8I4k0o6t2"
+    },
+    {
+      "id": "ccb8",
+      "name": "Orange Juice",
+      "stock": 740,
+      "serialCode": "z0A7x6x8H6S4"
+    },
+    {
+      "id": "c5d7",
+      "name": "Egg Carton",
+      "stock": 909,
+      "serialCode": "r0c7G3q6b4q0"
+    },
+    {
+      "id": "b233",
+      "name": "BBQ Sauce",
+      "stock": 902,
+      "serialCode": "w0q6l5P1C0j0"
+    },
+    {
+      "id": "8780",
+      "name": "Pineapple",
+      "stock": 169,
+      "serialCode": "J7O7s4l6T2x1"
+    },
+    {
+      "id": "d4dd",
+      "name": "Greek Yogurt",
+      "stock": 517,
+      "serialCode": "D1h5y0V2B0z7"
+    },
+    {
+      "id": "a147",
+      "name": "Avocado",
+      "stock": 989,
+      "serialCode": "x6D3x3G7A7A7"
+    },
+    {
+      "id": "3cb3",
+      "name": "Ketchup",
+      "stock": 799,
+      "serialCode": "G5u7m4l7S7X8"
+    },
+    {
+      "id": "722c",
+      "name": "Yellow Apple",
+      "stock": 386,
+      "serialCode": "J3p5Q8r0K3A0"
+    },
+    {
+      "id": "b97a",
+      "name": "Ground Beef",
+      "stock": 557,
+      "serialCode": "r8J0M3o5E8q4"
+    },
+    {
+      "id": "7b1f",
+      "name": "Tomato",
+      "stock": 297,
+      "serialCode": "x6A6M1N5i1O3"
+    },
+    {
+      "id": "3f5f",
+      "name": "Orange",
+      "stock": 488,
+      "serialCode": "P4v5p8S4b1A7"
+    },
+    {
+      "id": "9bd5",
+      "name": "Tomato juiceww",
+      "stock": 589,
+      "serialCode": "J3I6T4Q6q1i6"
+    },
+    {
+      "id": "d226",
+      "name": "Mustard",
+      "stock": 928,
+      "serialCode": "Q3z6R0L3U3r1"
+    },
+    {
+      "id": "0145",
+      "name": "Lemon",
+      "stock": 17,
+      "serialCode": "W7H3I6Q8J4z2"
+    }
+  ]
 }

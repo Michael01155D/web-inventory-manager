@@ -15,8 +15,6 @@ const App = () => {
     })
   }, [])
 
-  console.log("in App.jsx, inventory is ", inventory)
-
   return (
     <BrowserRouter>
       <Routes> 

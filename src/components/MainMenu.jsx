@@ -12,33 +12,16 @@ const MainMenu = ({inventory, setInventory}) => {
     const [displayMsg, setDisplayMsg] = useState("");
     const [isError, setIsError] = useState(false);
     const [displayAllDetails, setDisplayAllDetails] = useState(false);
-    const removeProduct = (productName) => {    
-        inventory.removeProduct(productName);
-        forceUpdate();
-    }
-
-    const editStock = (productName, newStock) => {
-        inventory.editStock(productName, newStock);
-        forceUpdate();
-    }
-
-    const renameProduct = (newName, oldName) => {
-        if (inventory.map(product => product.name.toLowerCase().trim()).includes(newName.toLowerCase().trim())){
-            setDisplayMsg(`Error: ${newName} is already in the Inventory! Please remove it before changing ${oldName} `);
-            setIsError(true);
-        } else {
-            setDisplayMsg(`Successfully renamed ${oldName} to ${newName}`);
-            inventory.renameProduct(newName, oldName);
-            forceUpdate();
-        }
-        toggleMessage(setIsError, setDisplayMsg);
-    }
 
     const clearInventoryPrompt = async() => {
         if (window.confirm("Warning! This is an irreversable action. Do you want to reset the Inventory?")) {
             await clearInventory();
             setInventory([]);
         }
+    }
+
+    const allowRename = (newName) => {
+        return !inventory.map(product => product.name.toLowerCase().trim()).includes(newName.toLowerCase().trim());
     }
     //todo: once db is implemented, add Link for each Product to link to /products/:id for detail screen
     return(
@@ -48,6 +31,7 @@ const MainMenu = ({inventory, setInventory}) => {
                 <button id="clearInventoryButton" onClick={()=> clearInventoryPrompt()}>Reset the Inventory</button>
             </header>
             <SearchBar query={query} setQuery={setQuery}/>
+            
             {displayMsg.length > 0 ? 
                 <DisplayMessage id="displayMsg" displayMessage={displayMsg} isError={isError}/>
                 :
@@ -63,10 +47,8 @@ const MainMenu = ({inventory, setInventory}) => {
                         .filter(product => product.name.toLowerCase().includes(query.toLowerCase().trim()))
                         .map(product => <Product 
                             key={product.serialCode} 
-                            product={product} 
-                            removeProduct={removeProduct}
-                            editStock={editStock} 
-                            renameProduct={renameProduct}
+                            product={product}
+                            allowRename={allowRename} 
                             displayAllDetails={displayAllDetails}  
                             />
                         ),
@@ -80,3 +62,26 @@ const MainMenu = ({inventory, setInventory}) => {
 }
 
 export default MainMenu;
+
+    //previous implementations using Inventory.js class file:
+    // const removeProduct = (productName) => {    
+    //     inventory.removeProduct(productName);
+    //     forceUpdate();
+    // }
+
+    // const editStock = (productName, newStock) => {
+    //     inventory.editStock(productName, newStock);
+    //     forceUpdate();
+    // }
+
+    // const renameProduct = (newName, oldName) => {
+    //     if (inventory.map(product => product.name.toLowerCase().trim()).includes(newName.toLowerCase().trim())){
+    //         setDisplayMsg(`Error: ${newName} is already in the Inventory! Please remove it before changing ${oldName} `);
+    //         setIsError(true);
+    //     } else {
+    //         setDisplayMsg(`Successfully renamed ${oldName} to ${newName}`);
+    //         inventory.renameProduct(newName, oldName);
+    //         forceUpdate();
+    //     }
+    //     toggleMessage(setIsError, setDisplayMsg);
+    // }
