@@ -60,7 +60,7 @@ const updateProduct = async (updatedProduct) => {
             body: JSON.stringify(updatedProduct)
         });
         const response = await request.json()
-        console.log("response in updateProduct is, ", response)
+        //console.log("response in updateProduct is, ", response)
        return response;
     }
 }

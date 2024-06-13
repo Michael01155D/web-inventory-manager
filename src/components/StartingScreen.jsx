@@ -6,6 +6,8 @@ import DisplayMessage, {toggleMessage} from "./DisplayMessage.jsx";
 import { addProduct } from "../../backend.js";
 
 
+//TODO: custom setup isnt rendering immediately on 'done'
+
 const StartingScreen = ({ inventory, setInventory, setDisplayStart }) => {
     const [startOption, setStartOption] = useState(false);
     const [numProducts, setNumProducts] = useState(0);

@@ -26,3 +26,7 @@
     font-size: .8em;
     background-color: var(--button-bg-color);
 }
+
+#toggleAllDetails {
+    background-color: var(--button-bg-color);
+}

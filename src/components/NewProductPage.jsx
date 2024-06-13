@@ -5,12 +5,11 @@ import "../styles/NewProductPage.css";
 import "../styles/Button.css";
 import { addProduct } from "../../backend";
 
-const NewProductPage = ({inventory}) => {
+const NewProductPage = ({inventory, setInventory}) => {
     const [productName, setProductName] = useState("");
     const [productStock, setProductStock] = useState(0);
     const [displayMsg, setDisplayMsg] = useState("");
     const [isError, setIsError] = useState(false);
-
     const addNewProduct = async (e) => {
         e.preventDefault();
         if (inventory.map(product => product.name).includes(productName)) {
@@ -18,8 +17,9 @@ const NewProductPage = ({inventory}) => {
             setDisplayMsg(`Error: ${productName} is already in the Inventory!`);
         } else {
             const newProduct = { name: productName, stock: productStock}
-            await addProduct(newProduct);
-            setDisplayMsg(`${productName} added to the Inventory!`)
+            const savedProduct = await addProduct(newProduct);
+            setDisplayMsg(`${productName} added to the Inventory!`);
+            setInventory([...inventory, savedProduct]);
         }
         toggleMessage(setIsError, setDisplayMsg);
         setProductName("");

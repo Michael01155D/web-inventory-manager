@@ -19,7 +19,7 @@ const App = () => {
     <BrowserRouter>
       <Routes> 
           <Route path='/' element={<HomePage inventory={inventory} setInventory={setInventory} />}/>
-          <Route path='/add' element={<NewProductPage inventory={inventory}/>}/>
+          <Route path='/add' element={<NewProductPage inventory={inventory} setInventory={setInventory}/>}/>
       </Routes>
     </BrowserRouter>
   )
