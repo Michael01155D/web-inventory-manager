@@ -3,9 +3,8 @@ import "../styles/Product.css";
 import "../styles/Button.css";
 import EditStockForm from './EditStockForm.jsx';
 import RenameProductForm from './RenameProductForm';
-import { removeProduct } from '../../backend.js';
 
-const Product = ( {product, displayAllDetails, allowRename } ) => {
+const Product = ( {product, displayAllDetails, allowRename, handleDelete} ) => {
   
     const [showDetails, setShowDetails] = useState(displayAllDetails);
     const [displayStockForm, setDisplayStockForm] = useState(false);
@@ -30,7 +29,7 @@ const Product = ( {product, displayAllDetails, allowRename } ) => {
                     <p> {productData.name} | Current Stock: {productData.stock} <span id="serialCode"> Serial Code: {productData.serialCode} </span></p>
                     <button id="editStockButton" onClick={() => setDisplayStockForm(!displayStockForm) }>Edit Stock</button>
                     <button  id="renameProductButton" onClick={() => setDisplayRenameForm(!displayRenameForm)}>Rename Product</button>
-                    <button id="removeProductButton" onClick={() => removeProduct(productData.name)}>Remove Product</button>
+                    <button id="removeProductButton" onClick={() => handleDelete(productData)}>Remove Product</button>
                 </section>
                  :
                 <p>{productData.name}</p>

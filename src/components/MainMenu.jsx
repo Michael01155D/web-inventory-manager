@@ -4,7 +4,7 @@ import Product from './Product';
 import SearchBar from "./SearchBar";
 import { Link } from "react-router-dom";
 import DisplayMessage, { toggleMessage } from "./DisplayMessage";
-import { clearInventory } from "../../backend";
+import { clearInventory, removeProduct } from "../../backend";
 
 const MainMenu = ({inventory, setInventory}) => {
     const [query, setQuery] = useState("");
@@ -20,9 +20,14 @@ const MainMenu = ({inventory, setInventory}) => {
         }
     }
 
-    const allowRename = (newName) => {
-        return !inventory.map(product => product.name.toLowerCase().trim()).includes(newName.toLowerCase().trim());
+    const handleDelete = async(product) => {
+        await removeProduct(product);
+        const newInventory = inventory.filter(p => p.id != product.id);
+        setInventory(newInventory);
     }
+
+    const allowRename = (newName) => {return !inventory.map(product => product.name.toLowerCase().trim()).includes(newName.toLowerCase().trim())}
+    
     //todo: once db is implemented, add Link for each Product to link to /products/:id for detail screen
     return(
         <main id="mainMenuScreen">
@@ -48,7 +53,8 @@ const MainMenu = ({inventory, setInventory}) => {
                         .map(product => <Product 
                             key={product.serialCode} 
                             product={product}
-                            allowRename={allowRename} 
+                            allowRename={allowRename}
+                            handleDelete={handleDelete} 
                             displayAllDetails={displayAllDetails}  
                             />
                         ),
