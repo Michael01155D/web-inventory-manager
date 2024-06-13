@@ -16,6 +16,7 @@ const StartingScreen = ({ inventory, setInventory, setDisplayStart }) => {
     //isError/displayMsg used for DisplayMessage component
     const [isError, setIsError] = useState(false);
     const [displayMsg, setDisplayMsg] = useState("");
+    const [startingProducts, setStartingProducts] = useState([]);
 
     const createDefaultInventory = () => {
         setStartOption("default");
@@ -32,7 +33,8 @@ const StartingScreen = ({ inventory, setInventory, setDisplayStart }) => {
             setDisplayMsg(`Error: ${newProductName} is already in the inventory!`);            
         } else {
             const newProduct = {name: newProductName, stock: newProductStock };
-            await addProduct(newProduct);
+            const savedProduct = await addProduct(newProduct);
+            setStartingProducts(startingProducts.concat(savedProduct));
             setIsError(false);
             setDisplayMsg(`Added ${newProductStock} ${newProductName} to the inventory!`);
         }
@@ -56,6 +58,7 @@ const StartingScreen = ({ inventory, setInventory, setDisplayStart }) => {
     }
 
     const setUpCustomInventory = () => {
+        setInventory(startingProducts);
         setDisplayStart(false);
     }
 
@@ -102,11 +105,11 @@ const StartingScreen = ({ inventory, setInventory, setDisplayStart }) => {
                     <button  id="doneCustomSetup" onClick={() => setUpCustomInventory()}>Done</button>
                 </section>
                 <section id="itemsAdded">
-                    {inventory.length > 0 ?
+                    {startingProducts.length > 0 ?
                         <>
                             <p>Items added:</p>
                             <ul>
-                                {inventory.map(p => <li key={p.serialCode}>{p.name}</li>)}
+                                {startingProducts.map(p => <li key={p.serialCode}>{p.name}</li>)}
                             </ul>
                         </>
                         :

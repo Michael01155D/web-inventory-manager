@@ -1,16 +1,3 @@
 {
-  "products": [
-    {
-      "id": "ef96",
-      "name": "testing",
-      "stock": 0,
-      "serialCode": "m7b3u4g5c8u5"
-    },
-    {
-      "id": "26b7",
-      "name": "142124124124",
-      "stock": 444,
-      "serialCode": "L8L1X5y1x3x0"
-    }
-  ]
+  "products": []
 }
