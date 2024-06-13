@@ -2,7 +2,8 @@ import { useState } from "react";
 import DisplayMessage, { toggleMessage } from "./DisplayMessage";
 import { Link } from "react-router-dom";
 import "../styles/NewProductPage.css";
-import "../styles/Button.css"
+import "../styles/Button.css";
+import { addProduct } from "../../backend";
 
 const NewProductPage = ({inventory}) => {
     const [productName, setProductName] = useState("");
@@ -10,14 +11,14 @@ const NewProductPage = ({inventory}) => {
     const [displayMsg, setDisplayMsg] = useState("");
     const [isError, setIsError] = useState(false);
 
-    const addNewProduct = (e) => {
+    const addNewProduct = async (e) => {
         e.preventDefault();
         if (inventory.map(product => product.name).includes(productName)) {
             setIsError(true);
             setDisplayMsg(`Error: ${productName} is already in the Inventory!`);
         } else {
             const newProduct = { name: productName, stock: productStock}
-            inventory.addProduct(newProduct);
+            await addProduct(newProduct);
             setDisplayMsg(`${productName} added to the Inventory!`)
         }
         toggleMessage(setIsError, setDisplayMsg);

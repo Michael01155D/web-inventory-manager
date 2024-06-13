@@ -1,3 +1,40 @@
 {
-  "products": []
+  "products": [
+    {
+      "id": "9508",
+      "name": "Canned Cat Food",
+      "stock": 441,
+      "serialCode": "n5G1H5K4A4n2"
+    },
+    {
+      "id": "5c4e",
+      "name": "Kale",
+      "stock": 579,
+      "serialCode": "B4q1x5u7X5f3"
+    },
+    {
+      "id": "2234",
+      "name": "Avocado",
+      "stock": 327,
+      "serialCode": "N2P0Q7A2Y2M6"
+    },
+    {
+      "id": "1598",
+      "name": "Banana",
+      "stock": 611,
+      "serialCode": "R3r4b4T6I2J5"
+    },
+    {
+      "id": "1807",
+      "name": "Bread",
+      "stock": 468,
+      "serialCode": "M6X6G1O6Z4C4"
+    },
+    {
+      "id": "d226",
+      "name": "wrwrara",
+      "stock": 0,
+      "serialCode": "C2c1T1K1H5s1"
+    }
+  ]
 }
