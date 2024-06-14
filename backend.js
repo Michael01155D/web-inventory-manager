@@ -15,7 +15,19 @@
 //     console.log("Server is online on Port", port);
 // })
 
-const URL = "http://localhost:3000/products";
+import mongoose from "mongoose";
+import Product from "./mongodb/ProductSchema";
+
+import { configDotenv } from "dotenv"; //access env vars w/ process.env.NAME
+configDotenv();
+const mongoUrl = process.env.MONGO_URL;
+
+const URL = process.env.BACKEND_URL;
+
+mongoose.connect(mongoUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(console.log("MongoDB connected"));
 
 
 const addProduct = async (newProduct) => {
@@ -32,6 +44,11 @@ const addProduct = async (newProduct) => {
         body: JSON.stringify(toAdd)
     });
     return res.json();
+}
+
+const getProductsMongo = async () => {
+    const data = await Product.find({})
+    console.log("data from mongo is: ", data);
 }
 
 const getProducts = async () => {
@@ -100,4 +117,4 @@ const generateSerialCode = async () => {
     return code;
 };
 
-export { addProduct, getProducts, updateProduct, removeProduct, clearInventory };
+export { addProduct, getProducts, updateProduct, removeProduct, clearInventory, getProductsMongo };

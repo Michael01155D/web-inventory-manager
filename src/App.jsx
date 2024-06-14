@@ -3,11 +3,14 @@ import './App.css'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from './components/HomePage.jsx';
 import NewProductPage from './components/NewProductPage.jsx';
-import {getProducts} from '../backend.js';
+import {getProducts, getProductsMongo} from '../backend.js';
 
 const App = () => {
   //current WIP: refactoring app to use db.json for inventory data
-
+  const tryMongo = async() => {
+    const data = await getProductsMongo();
+    console.log(data);
+  }
   const [inventory, setInventory] = useState([])
   useEffect( () => {
     getProducts().then((res) =>{
