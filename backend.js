@@ -1,33 +1,5 @@
-//todo: learn express and change backend to express
-//import express from 'express';
-// const server = express();
-// const port = 3000;
 
-// server.get("/products", async (req, res) => {
-//     res.send(data);
-// })
-
-// server.get("/", async (req, res) => {
-//     res.sendFile("./src/main.jsx")
-// })
-
-// server.listen(port, () => {
-//     console.log("Server is online on Port", port);
-// })
-
-import mongoose from "mongoose";
-import Product from "./mongodb/ProductSchema";
-
-import { configDotenv } from "dotenv"; //access env vars w/ process.env.NAME
-configDotenv();
-const mongoUrl = process.env.MONGO_URL;
-
-const URL = process.env.BACKEND_URL;
-
-mongoose.connect(mongoUrl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(console.log("MongoDB connected"));
+const URL = "http://localhost:3000/products";
 
 
 const addProduct = async (newProduct) => {
@@ -44,11 +16,6 @@ const addProduct = async (newProduct) => {
         body: JSON.stringify(toAdd)
     });
     return res.json();
-}
-
-const getProductsMongo = async () => {
-    const data = await Product.find({})
-    console.log("data from mongo is: ", data);
 }
 
 const getProducts = async () => {
@@ -117,4 +84,4 @@ const generateSerialCode = async () => {
     return code;
 };
 
-export { addProduct, getProducts, updateProduct, removeProduct, clearInventory, getProductsMongo };
+export { addProduct, getProducts, updateProduct, removeProduct, clearInventory };
