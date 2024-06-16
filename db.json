@@ -1,3 +1,28 @@
 {
-  "products": []
+  "products": [
+    {
+      "id": "b512",
+      "name": "Orange",
+      "stock": 216,
+      "serialCode": "k5v6T6T5N2Q4"
+    },
+    {
+      "id": "1cb4",
+      "name": "Canned Cat Food",
+      "stock": 136,
+      "serialCode": "r5q3F1Q0C4C2"
+    },
+    {
+      "id": "2354",
+      "name": "Yellow Apple",
+      "stock": 820,
+      "serialCode": "o7a8g6z7H3k5"
+    },
+    {
+      "id": "2a84",
+      "name": "Pineapple",
+      "stock": 460,
+      "serialCode": "r6G4g0p2b6a4"
+    }
+  ]
 }

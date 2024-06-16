@@ -1,0 +1,28 @@
+GET http://localhost:3000/products
+
+##############
+POST http://localhost:3000/products
+Content-Type: application/json
+
+{
+    "name": "test product",
+    "stock": 777,
+    "serialCode": "plswork"
+}
+
+########
+GET http://localhost:3000/products/666f6f1b3144ccf822bbb81a
+
+
+#########
+PUT http://localhost:3000/products/666f6f1b3144ccf822bbb81a
+Content-Type: application/json
+
+{
+    "name": "update me!!!",
+    "stock": 44,
+    "serialCode": "behappy"
+}
+
+############
+DELETE http://localhost:3000/products/666f68bc0e1d76a5a007586d

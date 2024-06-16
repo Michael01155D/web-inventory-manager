@@ -1,4 +1,4 @@
-
+//todo: replace this file with proper backend directory
 const URL = "http://localhost:3000/products";
 
 

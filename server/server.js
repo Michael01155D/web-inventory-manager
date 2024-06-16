@@ -1,29 +1,22 @@
 import express from 'express';
 import mongoose from "mongoose";
-import Product from "./models/Product";
+import productRouter from "./routes/productRoutes.js";
 import { configDotenv } from "dotenv"; //access env vars w/ process.env.NAME
-configDotenv();
+import path from "path";
+configDotenv({path: path.resolve("../.env")});
 
+
+const mongoUrl = process.env.MONGO_URL
 const server = express();
 const port = 3000;
+server.use(express.json())
+server.use("/products", productRouter)
 
-server.get("/products", async (req, res) => {
-    res.send(data);
-})
+mongoose.connect(mongoUrl).then(console.log("MongoDB connected"));
 
-server.get("/", async (req, res) => {
-    res.sendFile("./src/main.jsx")
-})
 
 server.listen(port, () => {
     console.log("Server is online on Port", port);
 })
 
-const mongoUrl = process.env.MONGO_URL;
 
-const URL = process.env.BACKEND_URL;
-
-mongoose.connect(mongoUrl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(console.log("MongoDB connected"));
