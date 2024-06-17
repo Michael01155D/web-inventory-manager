@@ -5,7 +5,7 @@ import Product from './Product';
 import SearchBar from "./SearchBar";
 import { Link } from "react-router-dom";
 import DisplayMessage, { toggleMessage } from "./DisplayMessage";
-import { clearInventory, removeProduct } from "../../backend";
+import { clearInventory, removeProduct } from "../connections/products.js";
 
 const MainMenu = ({inventory, setInventory}) => {
     const [query, setQuery] = useState("");
@@ -22,7 +22,7 @@ const MainMenu = ({inventory, setInventory}) => {
 
     const handleDelete = async(product) => {
         await removeProduct(product);
-        const newInventory = inventory.filter(p => p.id != product.id);
+        const newInventory = inventory.filter(p => p._id != product._id);
         setInventory(newInventory);
     }
 
@@ -52,7 +52,7 @@ const MainMenu = ({inventory, setInventory}) => {
                         inventory
                         .filter(product => product.name.toLowerCase().includes(query.toLowerCase().trim()))
                         .map(product => <Product 
-                            key={product.id} 
+                            key={product._id} 
                             product={product}
                             allowRename={allowRename}
                             handleDelete={handleDelete} 

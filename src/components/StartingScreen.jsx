@@ -3,7 +3,7 @@ import { createDefaultProduct } from "../defaultProductCreator.js";
 import "../styles/Button.css";
 import "../styles/StartingScreen.css"
 import DisplayMessage, {toggleMessage} from "./DisplayMessage.jsx";
-import { addProduct } from "../../backend.js";
+import { addProduct } from "../connections/products.js";
 
 
 const StartingScreen = ({ inventory, setInventory, setDisplayStart }) => {

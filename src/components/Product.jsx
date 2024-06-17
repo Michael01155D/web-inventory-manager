@@ -6,6 +6,7 @@ import RenameProductForm from './RenameProductForm';
 
 const Product = ( {product, displayAllDetails, allowRename, handleDelete} ) => {
   
+    //CURRENT BUG: editing both stock and name before toggling display details does not save both operations.
     const [showDetails, setShowDetails] = useState(displayAllDetails);
     const [displayStockForm, setDisplayStockForm] = useState(false);
     const [displayRenameForm, setDisplayRenameForm] = useState(false);

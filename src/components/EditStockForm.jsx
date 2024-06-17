@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { updateProduct } from '../../backend';
+import { updateProduct } from '../connections/products.js';
 
 const EditStockForm = ({ product, setProductData }) => {
     const [newStock, setNewStock] = useState(0);

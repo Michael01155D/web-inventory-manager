@@ -3,7 +3,7 @@ import DisplayMessage, { toggleMessage } from "./DisplayMessage";
 import { Link } from "react-router-dom";
 import "../styles/NewProductPage.css";
 import "../styles/Button.css";
-import { addProduct } from "../../backend";
+import { addProduct } from "../connections/products.js";
 
 const NewProductPage = ({inventory, setInventory}) => {
     const [productName, setProductName] = useState("");

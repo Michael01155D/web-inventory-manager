@@ -31,7 +31,7 @@ const generateName = (products) => {
         "Ketchup",
         "BBQ Sauce",
         "Dry Cat Food",
-        "Canned Cat Food",
+        "Wet Cat Food",
         "Dry Dog Food",    
         "Dog Treats",
         "Cat Treats",

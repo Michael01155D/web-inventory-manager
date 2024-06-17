@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { updateProduct } from "../../backend";
+import { updateProduct } from "../connections/products.js";
 import DisplayMessage, {toggleMessage} from "./DisplayMessage";
 
 const RenameProductForm = ({product, setProductData, allowRename}) => {
