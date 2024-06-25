@@ -4,7 +4,7 @@ import "../styles/Button.css";
 import EditStockForm from './EditStockForm.jsx';
 import RenameProductForm from './RenameProductForm';
 
-const Product = ( {product, displayAllDetails, allowRename, handleDelete} ) => {
+const Product = ( {product, displayAllDetails, allowRename, handleRename, handleDelete, handleStockEdit} ) => {
   
     //CURRENT BUG: editing both stock and name before toggling display details does not save both operations.
     const [showDetails, setShowDetails] = useState(displayAllDetails);
@@ -36,12 +36,12 @@ const Product = ( {product, displayAllDetails, allowRename, handleDelete} ) => {
                 <p>{productData.name}</p>
             }
             {displayStockForm && (showDetails || displayAllDetails) ? 
-            <EditStockForm product={product} setProductData={setProductData} />
+            <EditStockForm product={product} handleStockEdit={handleStockEdit} setProductData={setProductData} />
             :<></>
 
             }
             {displayRenameForm  && (showDetails || displayAllDetails) ? 
-                <RenameProductForm allowRename={allowRename} product={product} setProductData={setProductData} />
+                <RenameProductForm allowRename={allowRename} handleRename={handleRename} product={product} setProductData={setProductData} />
             :<></>
             }
             

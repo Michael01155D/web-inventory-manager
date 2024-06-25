@@ -2,7 +2,7 @@ import { useState } from "react";
 import { updateProduct } from "../connections/products.js";
 import DisplayMessage, {toggleMessage} from "./DisplayMessage";
 
-const RenameProductForm = ({product, setProductData, allowRename}) => {
+const RenameProductForm = ({product, setProductData, allowRename, handleRename}) => {
     const [newName, setNewName] = useState("");
     const [displayMsg, setDisplayMsg] = useState(null);
     const [isError, setIsError] = useState(false);
@@ -14,8 +14,8 @@ const RenameProductForm = ({product, setProductData, allowRename}) => {
             setIsError(true);
             setDisplayMsg(`Error: ${newName} is already in the inventory.`)
         } else {
+            await handleRename(newName, product.name);
             const updatedProduct = {...product, name: newName};
-            await updateProduct(updatedProduct);
             setProductData(updatedProduct);
             setDisplayMsg(`Renamed ${product.name} to ${newName}`);
         }

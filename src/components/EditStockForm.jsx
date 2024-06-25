@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 import { updateProduct } from '../connections/products.js';
 
-const EditStockForm = ({ product, setProductData }) => {
+const EditStockForm = ({ product, setProductData, handleStockEdit }) => {
     const [newStock, setNewStock] = useState(0);
     
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const updatedProduct = {...product, stock: newStock}; 
-        await updateProduct(updatedProduct)
+        await handleStockEdit(product, newStock);
+        const updatedProduct = {...product, stock: newStock};
         setProductData(updatedProduct)
     }
-
 
     return (
         <>

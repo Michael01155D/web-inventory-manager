@@ -5,7 +5,7 @@ import Product from './Product';
 import SearchBar from "./SearchBar";
 import { Link } from "react-router-dom";
 import DisplayMessage, { toggleMessage } from "./DisplayMessage";
-import { clearInventory, removeProduct } from "../connections/products.js";
+import { clearInventory, updateProduct, removeProduct } from "../connections/products.js";
 
 const MainMenu = ({inventory, setInventory}) => {
     const [query, setQuery] = useState("");
@@ -27,7 +27,22 @@ const MainMenu = ({inventory, setInventory}) => {
     }
 
     const allowRename = (newName) => {return !inventory.map(product => product.name.toLowerCase().trim()).includes(newName.toLowerCase().trim())}
-    const toObj = {to: "add", state: {setInventory}}
+
+    const handleRename = async (newName, oldName) => {
+        if (allowRename(newName)) {
+            const product = inventory.find(p => p.name == oldName);
+            const updatedProduct = {...product, name: newName};
+            await updateProduct(updatedProduct);
+            setInventory(inventory.map(p => p.name == oldName ? updatedProduct : p));
+
+        }
+    }
+
+    const handleStockEdit = async (product, newStock) => {
+        const updatedProduct = {...product, stock: newStock}; 
+        await updateProduct(updatedProduct)
+        setInventory(inventory.map(p => p.name == product.name ? updatedProduct : p));
+    }
     //todo: once db is implemented, add Link for each Product to link to /products/:id for detail screen
     return(
         <main id="mainMenuScreen">
@@ -55,7 +70,9 @@ const MainMenu = ({inventory, setInventory}) => {
                             key={product._id} 
                             product={product}
                             allowRename={allowRename}
-                            handleDelete={handleDelete} 
+                            handleRename={handleRename}
+                            handleDelete={handleDelete}
+                            handleStockEdit={handleStockEdit} 
                             displayAllDetails={displayAllDetails}  
                             />
                         ),
