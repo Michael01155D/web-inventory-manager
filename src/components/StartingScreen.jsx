@@ -26,7 +26,7 @@ const StartingScreen = ({ inventory, setInventory, setDisplayStart }) => {
 
     const addNewProduct = async (e) => {
         e.preventDefault();
-        if (inventory.map(p => p.name).includes(newProductName)) {
+        if (startingProducts.map(p => p.name).includes(newProductName)) {
             setIsError(true)
             setDisplayMsg(`Error: ${newProductName} is already in the inventory!`);            
         } else {
